@@ -1,0 +1,31 @@
+@AspNetCore8.ApiIdentityEndpoints_HostAddress = http://localhost:5042
+
+GET {{AspNetCore8.ApiIdentityEndpoints_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+POST {{AspNetCore8.ApiIdentityEndpoints_HostAddress}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "djohnnie",
+  "password": "Pa$$w0rd!",
+  "email": "djohnnie@company.com"
+}
+
+###
+
+POST {{AspNetCore8.ApiIdentityEndpoints_HostAddress}}/auth/login
+Content-Type: application/json
+
+{
+  "password": "Pa$$w0rd!",
+  "email": "djohnnie@company.com"
+}
+
+###
+
+GET {{AspNetCore8.ApiIdentityEndpoints_HostAddress}}/weatherforecast
+Accept: application/json
+Authorization: Bearer CfDJ8Kzx85JlzbFGjgkvmspM87mUBXSUhKkkPiwsNx-CkRNuT58DoO3S6q4vFuPR7l1bsv8hokG96OnucdB5sBFneNJaFNWvGFv3aE1lB2wpg3o1yp6SkR0eNQAKKnHqsYJF3UbJn_cWH2D_3zJaxbN8jp49eVMzsCURmZgikxBHwcRu2c589eBEULlWDAuMqZDEiggdGLSM16-9sagiLIiiBHQyEh4iAHFKoJjtXaIRLfQDmwNqBtfRGcUVIhdCa8HtSotUKTzUz54Lv7zmper6mgRgX75igeGTixlohm1KhfbKFfDoY_0lUVDPb6Wv-IEPxQUMDz6IxmDu5ZwdfytT9TO9rSka-k1yhVDd32gkxO4PSdWLKVq4o0je-uZMOGt5582aPcU7bTUIpoJFQsmNaBBit12XJeQC8n32R0JdPeXsKf7NnAGpZalzLbu9IfYH3eqeYqE6nokS24VliVGWZw3afk8DP96jj942_sLPNZ98qaJxXeurnmT65rWUxqAv10rlAoJonmuNaZP-nJmDcEi-7-yIoqTFluAt3Ef-XOj469IO3oqOAHJghWpHyJ98Od9nuuFcwJJKqGUEQdc6HbOMhw7XIh0-BqJydGoy2BRsGM_hdVsyERLfNhHkwW5SGxspyYPjUm3YFdYOFm2ceV8lO2WtRycba0FFbQpLNEZmVB8F-8tQ5QPo2R69xTX2Uo4tDF9za5FblTKUstsrNBc

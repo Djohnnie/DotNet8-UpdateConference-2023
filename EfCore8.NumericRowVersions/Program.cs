@@ -1,0 +1,67 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics;
+
+
+Console.WriteLine("Hello, World!");
+
+
+
+var serviceCollection = new ServiceCollection();
+serviceCollection.AddDbContext<BusinessDbContext>(options =>
+    options.UseSqlServer("Server=.\\SQLDEV;Database=efdb2;Integrated Security=True;Encrypt=True;TrustServerCertificate=True"));
+
+var serviceProvider = serviceCollection.BuildServiceProvider();
+
+using var dbContext = serviceProvider.GetRequiredService<BusinessDbContext>();
+await dbContext.Database.EnsureCreatedAsync();
+await dbContext.Businesses.ExecuteDeleteAsync();
+dbContext.Businesses.Add(new Business
+{
+    Name = "Local Butcher Shop"
+});
+await dbContext.SaveChangesAsync();
+
+foreach (var business in await dbContext.Businesses.ToListAsync())
+{
+    Console.WriteLine($"{business.Name} ({business.RowVersion})");
+}
+
+
+Console.ReadKey();
+
+
+public class Business
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public long RowVersion { get; set; }
+}
+
+
+public class BusinessDbContext : DbContext
+{
+    public DbSet<Business> Businesses { get; set; }
+
+    public BusinessDbContext(DbContextOptions<BusinessDbContext> options)
+      : base(options)
+    {
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.LogTo(message => Debug.WriteLine(message));
+
+        base.OnConfiguring(optionsBuilder);
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Business>().Property(e => e.RowVersion)
+            .HasConversion<byte[]>()
+            .IsRowVersion();
+
+        base.OnModelCreating(modelBuilder);
+    }
+}

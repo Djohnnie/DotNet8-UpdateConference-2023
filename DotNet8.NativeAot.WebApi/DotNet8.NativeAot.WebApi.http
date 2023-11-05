@@ -1,0 +1,11 @@
+@DotNet8.NativeAot.WebApi_HostAddress = http://localhost:5014
+
+GET {{DotNet8.NativeAot.WebApi_HostAddress}}/todos/
+Accept: application/json
+
+###
+
+GET {{DotNet8.NativeAot.WebApi_HostAddress}}/todos/1
+Accept: application/json
+
+###
